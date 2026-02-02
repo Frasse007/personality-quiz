@@ -1,1 +1,60 @@
-console.log("script.js connected!");
+// Store answers of user (key = question number, value = points)
+let userAnswers = {};
+
+// Select all questions and loops through each
+const questions = document.querySelectorAll('.question-block');
+questions.forEach((block, questionIndex) => {
+    const answerButtons = block.querySelectorAll('.answer-btn');
+    
+    // Adds click listener for each button
+    answerButtons.forEach(function(button) {
+        button.addEventListener("click", function() {
+            
+            // Removes selected class from all buttons in this question
+            answerButtons.forEach(function(btn) {
+                btn.classList.remove("selected");
+            });
+
+            // Adds selected class to the clicked button
+            button.classList.add("selected");
+
+            // Stores value of answer
+            const answerValue = parseInt(this.getAttribute('data-answer'));
+            userAnswers[questionIndex] = answerValue;
+        });
+    });
+});
+
+function displayResult() {
+    // Checks that user answered all questions
+    if (Object.keys(userAnswers).length < questions.length) {
+        alert('Please answer all questions before viewing results!');
+        return;
+    }
+
+    // Calculate total points
+    let totalPoints = 0;
+    for (let questionIndex in userAnswers) {
+        totalPoints += userAnswers[questionIndex];
+    }
+
+    // Determine attachment style based on answer points
+    let attachmentStyle = '';
+    let description = '';
+
+    if (totalPoints >= 5 && totalPoints <= 8) {
+        attachmentStyle = 'The Independent Lover';
+        description = 'You love deeply but need space to stay grounded. You value autonomy and don’t believe love should feel consuming. When balanced, you’re a calm and steady partner.';
+    } else if (totalPoints >= 9 && totalPoints <= 12) {
+        attachmentStyle = 'The Secure Partner';
+        description = 'You prioritize trust, communication, and emotional safety. You’re comfortable with closeness and independence, making you one of the most emotionally healthy partners.';
+    } else if (totalPoints >= 13 && totalPoints <= 16) {
+        attachmentStyle = 'The Devoted Builder';
+        description = 'You show love through effort and consistency. You want a relationship that lasts and are willing to put in the work to make it strong.';
+    } else {
+        attachmentStyle = 'The Intense Romantic';
+        description = 'You love loudly, deeply, and with your whole chest. You crave passion, closeness, and emotional honesty. Relationships are a major source of meaning for you.';
+    }
+
+    
+}
