@@ -44,19 +44,41 @@ function displayResult() {
     // Scoring ranges: 5-8, 9-12, 13-16, 17-20
     let attachmentStyle = '';
     let description = '';
+    
+    const resultRanges = [
+        {
+            min: 5,
+            max: 8,
+            title: 'The Independent Lover',
+            description: 'You love deeply but need space to stay grounded. You value autonomy and don’t believe love should feel consuming. When balanced, you’re a calm and steady partner.'
+        },
+        {
+            min: 9,
+            max: 12,
+            title: 'The Secure Partner',
+            description: 'You prioritize trust, communication, and emotional safety. You’re comfortable with closeness and independence, making you one of the most emotionally healthy partners.'
+        },
+        {
+            min: 13,
+            max: 16,
+            title: 'The Devoted Builder',
+            description: 'You show love through effort and consistency. You want a relationship that lasts and are willing to put in the work to make it strong.'
+        },
+        {
+            min: 17,
+            max: 20,
+            title: 'The Intense Romantic',
+            description: 'You love loudly, deeply, and with your whole chest. You crave passion, closeness, and emotional honesty. Relationships are a major source of meaning for you.'
+        }
+    ]
 
-    if (totalPoints >= 5 && totalPoints <= 8) {
-        attachmentStyle = 'The Independent Lover';
-        description = 'You love deeply but need space to stay grounded. You value autonomy and don’t believe love should feel consuming. When balanced, you’re a calm and steady partner.';
-    } else if (totalPoints >= 9 && totalPoints <= 12) {
-        attachmentStyle = 'The Secure Partner';
-        description = 'You prioritize trust, communication, and emotional safety. You’re comfortable with closeness and independence, making you one of the most emotionally healthy partners.';
-    } else if (totalPoints >= 13 && totalPoints <= 16) {
-        attachmentStyle = 'The Devoted Builder';
-        description = 'You show love through effort and consistency. You want a relationship that lasts and are willing to put in the work to make it strong.';
-    } else {
-        attachmentStyle = 'The Intense Romantic';
-        description = 'You love loudly, deeply, and with your whole chest. You crave passion, closeness, and emotional honesty. Relationships are a major source of meaning for you.';
+    // Iterates through resultRanges to find result based on quiz answers/score
+    for (let range of resultRanges) {
+        if (totalPoints >= range.min && totalPoints <= range.max) {
+            attachmentStyle = range.title;
+            description = range.description;
+            break;
+        }
     }
 
     // Shows the result container by changing display property
