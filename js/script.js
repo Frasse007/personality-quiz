@@ -19,12 +19,14 @@ questions.forEach((block, questionIndex) => {
             button.classList.add("selected");
 
             // Stores value of answer
+            // parseInt converts the string from data-answer attribute to a integer for calculation
             const answerValue = parseInt(this.getAttribute('data-answer'));
             userAnswers[questionIndex] = answerValue;
         });
     });
 });
 
+// Calculates quiz results and displays user's attachment style
 function displayResult() {
     // Checks that user answered all questions
     if (Object.keys(userAnswers).length < questions.length) {
@@ -32,13 +34,14 @@ function displayResult() {
         return;
     }
 
-    // Calculate total points
+    // Calculate total points by summing all answer values
     let totalPoints = 0;
     for (let questionIndex in userAnswers) {
         totalPoints += userAnswers[questionIndex];
     }
 
     // Determine attachment style based on answer points
+    // Scoring ranges: 5-8, 9-12, 13-16, 17-20
     let attachmentStyle = '';
     let description = '';
 
@@ -56,11 +59,11 @@ function displayResult() {
         description = 'You love loudly, deeply, and with your whole chest. You crave passion, closeness, and emotional honesty. Relationships are a major source of meaning for you.';
     }
 
-    // Shows the result container
+    // Shows the result container by changing display property
     const resultContainer = document.getElementById('result-container');
     resultContainer.style.display = 'block';
 
-    // Updates result text
+    // Updates result text with attachment style, description and total points
     const resultText = document.getElementById('result-text');
     resultText.innerHTML = `
         <h4 class="text-danger">${attachmentStyle}</h4>
@@ -68,7 +71,7 @@ function displayResult() {
         <p class="text-muted"><small>Total Points: ${totalPoints}/20</small></p>
     `;
 
-    // Scroll to result
+    // Scroll to result for better UX
     resultContainer.scrollIntoView({ behavior: 'smooth' });
 } 
 
