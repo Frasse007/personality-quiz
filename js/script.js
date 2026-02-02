@@ -56,5 +56,22 @@ function displayResult() {
         description = 'You love loudly, deeply, and with your whole chest. You crave passion, closeness, and emotional honesty. Relationships are a major source of meaning for you.';
     }
 
-    
-}
+    // Shows the result container
+    const resultContainer = document.getElementById('result-container');
+    resultContainer.style.display = 'block';
+
+    // Updates result text
+    const resultText = document.getElementById('result-text');
+    resultText.innerHTML = `
+        <h4 class="text-danger">${attachmentStyle}</h4>
+        <p>${description}</p>
+        <p class="text-muted"><small>Total Points: ${totalPoints}/20</small></p>
+    `;
+
+    // Scroll to result
+    resultContainer.scrollIntoView({ behavior: 'smooth' });
+} 
+
+// Adds click listener to the show results button
+const resultsButton = document.getElementById('show-result');
+resultsButton.addEventListener('click', displayResult);
